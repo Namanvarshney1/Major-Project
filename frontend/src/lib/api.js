@@ -64,12 +64,25 @@ class ApiClient {
         end: (id) => this.request(`/interviews/${id}/end`, {
             method: 'POST',
         }),
+        saveAnswer: (interviewId, questionId, answerText, timeSpentSeconds = 0) => this.request(`/interviews/${interviewId}/questions/${questionId}/save`, {
+            method: 'POST',
+            body: JSON.stringify({
+                answer_text: answerText,
+                time_spent_seconds: timeSpentSeconds,
+            }),
+        }),
         submitAnswer: (interviewId, questionId, answerText, timeSpentSeconds = 0) => this.request(`/interviews/${interviewId}/questions/${questionId}/answer`, {
             method: 'POST',
             body: JSON.stringify({
                 answer_text: answerText,
                 time_spent_seconds: timeSpentSeconds,
             }),
+        }),
+        completeEvaluation: (interviewId) => this.request(`/interviews/${interviewId}/complete-evaluation`, {
+            method: 'POST',
+        }),
+        retryEvaluation: (interviewId) => this.request(`/interviews/${interviewId}/retry-evaluation`, {
+            method: 'POST',
         }),
         getEvaluation: (interviewId, questionId) => this.request(`/interviews/${interviewId}/questions/${questionId}/evaluation`),
         getReport: (interviewId) => this.request(`/interviews/${interviewId}/report`),

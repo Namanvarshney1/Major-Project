@@ -50,7 +50,7 @@ describe('App Navigation & Protection Gates', () => {
         expect(screen.getByText('Skill Tree')).toBeInTheDocument();
         expect(screen.getByText('History')).toBeInTheDocument();
         expect(screen.getByText('Learning Centre')).toBeInTheDocument();
-        expect(screen.getByText('Achievements')).toBeInTheDocument();
-        expect(screen.getByText('Interview Arena')).toBeInTheDocument();
+        expect(screen.getByText('Start Interview')).toBeInTheDocument();
+        expect(screen.queryByText('Interview Arena')).not.toBeInTheDocument();
     });
 });

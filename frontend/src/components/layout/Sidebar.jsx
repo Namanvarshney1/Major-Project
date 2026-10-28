@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../lib/authContext';
-import { LayoutDashboard, PlayCircle, Terminal, Brain, Fingerprint, GitFork, History, BookOpen, Award, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, PlayCircle, Brain, Fingerprint, GitFork, History, BookOpen, Award, Settings, LogOut } from 'lucide-react';
 export const Sidebar = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -42,10 +42,6 @@ export const Sidebar = () => {
               <NavLink to="/interview/setup" className={navLinkClasses}>
                 <PlayCircle className="w-4 h-4 text-[#4b6700]"/>
                 <span>Start Interview</span>
-              </NavLink>
-              <NavLink to="/interview/arena" className={navLinkClasses}>
-                <Terminal className="w-4 h-4"/>
-                <span>Interview Arena</span>
               </NavLink>
               <NavLink to="/coach" className={navLinkClasses}>
                 <Brain className="w-4 h-4"/>

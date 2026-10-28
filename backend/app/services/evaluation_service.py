@@ -1,8 +1,9 @@
 """
 Evaluation Service
-Evaluates submitted candidate responses, coordinates LangGraph analysis,
-persists verified evaluations in MongoDB, and generates final reports.
+Evaluates submitted candidate responses, coordinates whole-interview analysis,
+persists verified evaluations in MongoDB, and generates final debrief reports.
 """
+from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
 from app.core.errors import NotFoundException, ForbiddenException, DuplicateSubmissionException
 from app.repositories.interview_repository import InterviewRepository
@@ -10,7 +11,7 @@ from app.repositories.question_repository import QuestionRepository
 from app.repositories.answer_repository import AnswerRepository
 from app.repositories.evaluation_repository import EvaluationRepository
 from app.repositories.gamification_repository import GamificationRepository
-from app.ai.workflow.graph import interview_workflow_app
+from app.services.groq_evaluation_service import groq_evaluation_service
 
 
 class EvaluationService:
@@ -28,10 +29,10 @@ class EvaluationService:
         question_id: str,
         user_id: str,
         answer_text: str,
-        time_spent_seconds: int = 0
+        time_spent_seconds: int = 0,
+        evaluate_immediate: bool = False
     ) -> Dict[str, Any]:
-        """Submits answer, verifies uniqueness, invokes LangGraph evaluation, and saves to MongoDB."""
-        # Validate interview existence and ownership
+        """Saves candidate answer and performs semantic Groq evaluation."""
         interview = await self.interview_repo.get_by_id(interview_id)
         if not interview:
             raise NotFoundException(resource="Interview")
@@ -42,67 +43,58 @@ class EvaluationService:
         if not question or question["interview_id"] != interview_id:
             raise NotFoundException(resource="Question")
 
-        # Duplicate submission check
-        existing_answer = await self.answer_repo.get_by_question_and_interview(question_id, interview_id, user_id)
-        if existing_answer:
-            # If already evaluated, return the existing evaluation
-            existing_eval = await self.eval_repo.get_by_question_id(question_id, user_id)
-            if existing_eval:
-                existing_eval["question_text"] = question["question_text"]
-                existing_eval["topic"] = question["topic"]
-                return existing_eval
-            raise DuplicateSubmissionException()
+        # Save or update answer in MongoDB
+        saved_answer = await self.answer_repo.upsert(
+            question_id=question_id,
+            interview_id=interview_id,
+            user_id=user_id,
+            answer_text=answer_text,
+            time_spent_seconds=time_spent_seconds
+        )
 
-        # Persist candidate answer
-        answer_doc = {
-            "user_id": user_id,
-            "interview_id": interview_id,
-            "question_id": question_id,
-            "answer_text": answer_text,
-            "time_spent_seconds": time_spent_seconds
-        }
-        await self.answer_repo.create(answer_doc)
+        # Check if already evaluated
+        existing_eval = await self.eval_repo.get_by_question_id(question_id, user_id)
+        if existing_eval:
+            existing_eval["question_text"] = question["question_text"]
+            existing_eval["topic"] = question["topic"]
+            return existing_eval
 
-        # Build LangGraph evaluation input
-        eval_state = {
-            "interview_id": interview_id,
-            "user_id": user_id,
-            "job_role": interview.get("job_role", "Senior Backend Engineer"),
-            "difficulty": interview.get("difficulty", "senior"),
-            "interview_type": interview.get("interview_type", "technical"),
-            "current_question_index": interview.get("current_question_index", 0),
-            "total_questions": interview.get("total_questions", 5),
-            "current_question": question,
-            "candidate_answer": answer_text,
-            "time_spent_seconds": time_spent_seconds,
-            "action_type": "evaluate_answer"
-        }
+        # Semantic Groq evaluation
+        role = interview.get("job_role", "Software Engineer")
+        round_type = interview.get("round_type") or interview.get("interview_type", "technical")
+        difficulty = interview.get("difficulty", "senior")
 
-        # Run LangGraph pipeline
-        result = await interview_workflow_app.ainvoke(eval_state)
-        eval_data = result.get("current_evaluation", {})
+        eval_result = await groq_evaluation_service.evaluate_answer(
+            question=question,
+            answer_text=answer_text,
+            job_role=role,
+            round_type=round_type,
+            difficulty=difficulty
+        )
 
-        # Persist structured evaluation
         eval_record = {
             "user_id": user_id,
             "interview_id": interview_id,
             "question_id": question_id,
-            "technical_accuracy": eval_data.get("technical_accuracy", 80.0),
-            "relevance": eval_data.get("relevance", 85.0),
-            "completeness": eval_data.get("completeness", 80.0),
-            "clarity": eval_data.get("clarity", 80.0),
-            "overall_score": eval_data.get("overall_score", 81.0),
-            "strengths": eval_data.get("strengths", ["Clear explanation"]),
-            "missing_concepts": eval_data.get("missing_concepts", []),
-            "feedback": eval_data.get("feedback", "Good effort."),
-            "model_answer": eval_data.get("model_answer", "N/A"),
-            "model_identifier": "Llama-3.3-70B (Groq Engine)"
+            "technical_accuracy": eval_result["correctness_score"],
+            "relevance": eval_result["relevance_score"],
+            "completeness": eval_result["completeness_score"],
+            "clarity": eval_result["reasoning_score"],
+            "overall_score": eval_result["overall_score"],
+            "is_relevant": eval_result.get("is_relevant", True),
+            "strengths": eval_result.get("strengths", []),
+            "missing_concepts": eval_result.get("missing_concepts", []),
+            "feedback": eval_result.get("feedback", ""),
+            "model_answer": eval_result.get("model_answer", ""),
+            "improvement_suggestion": eval_result.get("improvement_suggestion", ""),
+            "evidence": eval_result.get("evidence", []),
+            "model_identifier": "PrepPulse Groq Evaluation Engine"
         }
         saved_eval = await self.eval_repo.create(eval_record)
         saved_eval["question_text"] = question["question_text"]
         saved_eval["topic"] = question["topic"]
 
-        # Award XP and log activity
+        # Award XP based on verified evaluation
         xp = int(saved_eval["overall_score"] * 1.5)
         await self.gamification_repo.log_activity(
             user_id=user_id,
@@ -111,30 +103,125 @@ class EvaluationService:
             xp_awarded=xp
         )
 
-        # Check and advance interview progress
-        current_idx = interview.get("current_question_index", 0)
-        total_q = interview.get("total_questions", 5)
-        if current_idx + 1 >= total_q:
-            # Interview complete! Calculate final score
-            all_evals = await self.eval_repo.list_by_interview(interview_id, user_id)
-            final_score = round(sum(e["overall_score"] for e in all_evals) / len(all_evals), 1)
+        return saved_eval
+
+    async def evaluate_complete_session(self, interview_id: str, user_id: str) -> Dict[str, Any]:
+        """
+        Triggers whole-interview evaluation across all questions and answers using Groq.
+        Stores comprehensive report and updates overall status and scores.
+        """
+        interview = await self.interview_repo.get_by_id(interview_id)
+        if not interview:
+            raise NotFoundException(resource="Interview")
+        if interview["user_id"] != user_id:
+            raise ForbiddenException(detail="You do not own this interview")
+
+        # If already evaluated and completed, return existing saved report
+        if interview.get("status") == "completed" and interview.get("report"):
+            saved_report = interview["report"]
+            saved_report["interview_id"] = interview_id
+            saved_report["user_id"] = user_id
+            return saved_report
+
+        questions = await self.question_repo.list_by_interview(interview_id)
+        answers = await self.answer_repo.list_by_interview(interview_id, user_id)
+
+        # Run whole-interview evaluation engine with Groq
+        try:
+            report = await groq_evaluation_service.evaluate_whole_interview(
+                interview=interview,
+                questions=questions,
+                answers=answers
+            )
+        except Exception as exc:
+            # Preserve transcript and mark retryable error state on interview
             await self.interview_repo.update(
                 interview_id,
-                {"status": "completed", "final_score": final_score}
+                {"status": "evaluation_failed", "last_evaluation_error": str(exc)}
             )
-            # Unlock first interview achievement if applicable
-            await self.gamification_repo.unlock_achievement(
-                user_id=user_id,
-                achievement_key="first_interview_complete",
-                title="First Step to Mastery",
-                description="Completed your first full PrepPulse interview session",
-                category="Milestone",
-                xp_reward=200
-            )
-        else:
-            await self.interview_repo.update(interview_id, {"current_question_index": current_idx + 1})
+            raise
 
-        return saved_eval
+        now = datetime.now(timezone.utc)
+        overall_score = report["overall_score"]
+
+        # Persist individual evaluations into eval_repo so DNA, Coach, and Skill Tree update
+        persisted_evals = []
+        for q_eval in report.get("detailed_questions", []):
+            eval_record = {
+                "user_id": user_id,
+                "interview_id": interview_id,
+                "question_id": q_eval["question_id"],
+                "technical_accuracy": q_eval["technical_accuracy"],
+                "relevance": q_eval["relevance"],
+                "completeness": q_eval["completeness"],
+                "clarity": q_eval["clarity"],
+                "overall_score": q_eval["score"],
+                "strengths": q_eval["what_went_well"],
+                "missing_concepts": q_eval["what_was_missing"],
+                "feedback": q_eval["improvement_suggestion"],
+                "model_answer": q_eval["stronger_answer_example"],
+                "model_identifier": "PrepPulse Groq Evaluation Matrix"
+            }
+            # Persist or update evaluation document
+            saved = await self.eval_repo.upsert(eval_record)
+            saved["question_text"] = q_eval["question_text"]
+            saved["topic"] = q_eval["topic"]
+            saved["candidate_answer"] = q_eval["candidate_answer"]
+            persisted_evals.append(saved)
+
+        # Update interview with report, status, and completion time
+        update_data = {
+            "status": "completed",
+            "final_score": overall_score,
+            "completed_at": now,
+            "report": report,
+            "last_evaluation_error": None
+        }
+        await self.interview_repo.update(interview_id, update_data)
+
+        # Log gamification XP
+        total_xp = report.get("xp_earned", int(overall_score * 10))
+        await self.gamification_repo.log_activity(
+            user_id=user_id,
+            activity_type="interview_completion",
+            topic=report["strongest_topics"][0] if report["strongest_topics"] else "General",
+            xp_awarded=total_xp
+        )
+
+        # Unlock Milestone Achievement if first completed
+        await self.gamification_repo.unlock_achievement(
+            user_id=user_id,
+            achievement_key="first_interview_complete",
+            title="First Step to Mastery",
+            description="Completed your first full PrepPulse interview session",
+            category="Milestone",
+            xp_reward=200
+        )
+
+        # Format full return response
+        report["interview_id"] = interview_id
+        report["user_id"] = user_id
+        report["status"] = "completed"
+        report["completed_at"] = now
+        report["evaluations"] = persisted_evals
+        report["suggested_next_session"] = {
+            "topic": report["weakest_topics"][0] if report["weakest_topics"] else "System Architecture",
+            "difficulty": interview.get("difficulty", "senior"),
+            "estimated_mins": 15
+        }
+        return report
+
+    async def retry_evaluation(self, interview_id: str, user_id: str) -> Dict[str, Any]:
+        """Clears cached report and re-runs whole-interview evaluation on existing transcript."""
+        interview = await self.interview_repo.get_by_id(interview_id)
+        if not interview:
+            raise NotFoundException(resource="Interview")
+        if interview["user_id"] != user_id:
+            raise ForbiddenException(detail="You do not own this interview")
+
+        # Clear report and failure status to force re-evaluation
+        await self.interview_repo.update(interview_id, {"report": None, "status": "in_progress", "last_evaluation_error": None})
+        return await self.evaluate_complete_session(interview_id, user_id)
 
     async def get_evaluation_for_question(self, question_id: str, user_id: str) -> Optional[Dict[str, Any]]:
         eval_doc = await self.eval_repo.get_by_question_id(question_id, user_id)
@@ -146,66 +233,23 @@ class EvaluationService:
         return eval_doc
 
     async def get_final_report(self, interview_id: str, user_id: str) -> Dict[str, Any]:
-        """Generates comprehensive final interview report from stored evaluations in MongoDB."""
+        """Retrieves or generates final report."""
         interview = await self.interview_repo.get_by_id(interview_id)
         if not interview:
             raise NotFoundException(resource="Interview")
         if interview["user_id"] != user_id:
             raise ForbiddenException(detail="You do not have access to this report")
 
-        evals = await self.eval_repo.list_by_interview(interview_id, user_id)
-        for e in evals:
-            q = await self.question_repo.get_by_id(e["question_id"])
-            if q:
-                e["question_text"] = q["question_text"]
-                e["topic"] = q["topic"]
+        # If already has saved report, return it
+        if interview.get("report"):
+            report = interview["report"]
+            report["interview_id"] = interview_id
+            report["user_id"] = user_id
+            report["status"] = interview.get("status", "completed")
+            report["completed_at"] = interview.get("completed_at")
+            evals = await self.eval_repo.list_by_interview(interview_id, user_id)
+            report["evaluations"] = evals
+            return report
 
-        if evals:
-            overall_score = round(sum(e["overall_score"] for e in evals) / len(evals), 1)
-        else:
-            overall_score = 0.0
-
-        # Topic aggregation
-        topic_scores: Dict[str, List[float]] = {}
-        for e in evals:
-            t = e.get("topic", "General")
-            topic_scores.setdefault(t, []).append(e["overall_score"])
-
-        sorted_topics = sorted(
-            [(t, sum(scores)/len(scores)) for t, scores in topic_scores.items()],
-            key=lambda x: x[1],
-            reverse=True
-        )
-
-        strongest = [t[0] for t in sorted_topics[:2]] if sorted_topics else ["System Architecture"]
-        weakest = [t[0] for t in sorted_topics[-2:]] if sorted_topics else ["Concurrency"]
-
-        recommendations = [
-            f"Review architectural trade-offs in {weakest[0]} before your next mock interview.",
-            f"Build on your strong foundation in {strongest[0]} by focusing on edge cases and failure modes.",
-            "Practice writing concise STAR summaries for complex engineering situations."
-        ]
-
-        report = {
-            "interview_id": interview_id,
-            "user_id": user_id,
-            "job_role": interview.get("job_role", "Senior Backend Engineer"),
-            "interview_type": interview.get("interview_type", "technical"),
-            "difficulty": interview.get("difficulty", "senior"),
-            "status": interview.get("status", "completed"),
-            "overall_score": overall_score,
-            "total_questions": interview.get("total_questions", len(evals)),
-            "answered_questions": len(evals),
-            "strongest_topics": strongest,
-            "weakest_topics": weakest,
-            "recommendations": recommendations,
-            "suggested_next_session": {
-                "topic": weakest[0],
-                "difficulty": interview.get("difficulty", "senior"),
-                "estimated_mins": 10
-            },
-            "evaluations": evals,
-            "xp_earned": int(overall_score * len(evals)),
-            "completed_at": interview.get("completed_at")
-        }
-        return report
+        # Otherwise evaluate now
+        return await self.evaluate_complete_session(interview_id, user_id)

@@ -133,6 +133,12 @@ export function App() {
                   </AppLayout>
                 </ProtectedRoute>}/>
 
+            <Route path="/profile" element={<ProtectedRoute>
+                  <AppLayout>
+                    <SettingsPage />
+                  </AppLayout>
+                </ProtectedRoute>}/>
+
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/dashboard" replace/>}/>
           </Routes>

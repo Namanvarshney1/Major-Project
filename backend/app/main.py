@@ -11,6 +11,7 @@ from app.core.logging import setup_logging, logger
 from app.db.mongodb import db_manager
 from app.db.indexes import create_db_indexes
 from app.db.seed import seed_default_accounts
+from app.db.health import is_atlas_uri
 
 # Route imports
 from app.api.v1.auth import router as auth_router
@@ -28,6 +29,7 @@ async def lifespan(app: FastAPI):
     """Handles startup and shutdown lifecycle events."""
     setup_logging()
     logger.info("Initializing PrepPulse API Services...")
+    settings.validate_startup()
     await db_manager.connect_to_database()
     active_db = db_manager.get_database()
     if active_db is not None:
@@ -70,11 +72,23 @@ app.include_router(history_router, prefix=settings.API_V1_STR)
 @app.get("/health", tags=["Health"])
 @app.get(f"{settings.API_V1_STR}/health", tags=["Health"])
 async def health_check():
-    """Health check status endpoint."""
+    """Health check status endpoint returning real MongoDB and AI provider readiness."""
+    is_real_db = db_manager.is_connected_to_real_db()
     return {
-        "status": "healthy",
+        "status": "healthy" if is_real_db else "degraded",
         "service": settings.PROJECT_NAME,
         "version": settings.VERSION,
-        "database": "mock_in_memory" if db_manager.is_mock else "connected",
+        "database": "connected" if is_real_db else "mock_in_memory",
+        "database_name": settings.MONGODB_DATABASE,
+        "database_type": "MongoDB Atlas" if is_atlas_uri(settings.MONGODB_URI) else "Local/Mock",
+        "groq_configured": bool(settings.GROQ_API_KEY),
         "model": settings.GROQ_MODEL
     }
+
+
+@app.get("/health/db", tags=["Health"])
+@app.get(f"{settings.API_V1_STR}/health/db", tags=["Health"])
+async def database_health_check():
+    """Performs an active, live MongoDB ping test and returns diagnostics without leaking secrets."""
+    from app.db.health import check_mongodb_connection
+    return await check_mongodb_connection()

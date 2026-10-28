@@ -19,6 +19,27 @@ class EvaluationRepository:
         eval_dict["_id"] = result.inserted_id
         return self._format_doc(eval_dict)
 
+    async def upsert(self, eval_dict: Dict[str, Any]) -> Dict[str, Any]:
+        """Inserts or updates an evaluation record by question_id and user_id."""
+        now = datetime.now(timezone.utc)
+        question_id = eval_dict["question_id"]
+        user_id = eval_dict.get("user_id")
+        query: Dict[str, Any] = {"question_id": question_id}
+        if user_id:
+            query["user_id"] = user_id
+
+        eval_dict["updated_at"] = now
+        existing = await self.collection.find_one(query)
+        if existing:
+            await self.collection.update_one(query, {"$set": eval_dict})
+            eval_dict["_id"] = existing["_id"]
+            return self._format_doc(eval_dict)
+        else:
+            eval_dict["created_at"] = now
+            result = await self.collection.insert_one(eval_dict)
+            eval_dict["_id"] = result.inserted_id
+            return self._format_doc(eval_dict)
+
     async def get_by_question_id(self, question_id: str, user_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
         query: Dict[str, Any] = {"question_id": question_id}
         if user_id:
