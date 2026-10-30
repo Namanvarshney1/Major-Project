@@ -26,51 +26,51 @@ CURATED_QUESTIONS: Dict[str, List[Dict[str, Any]]] = {
     "hr": [
         {
             "topic": "Self-Introduction",
-            "question_text": "Please walk me through your professional background. Focus on key milestones that shaped your engineering philosophy and why this role is the natural next step in your career.",
-            "expected_concepts": ["Chronological career progression", "Key technical achievements", "Engineering philosophy", "Role motivation"],
-            "evaluation_rubric": "Look for concise storytelling, structured communication (under 3 mins), high-impact metrics, and alignment with target role.",
+            "question_text": "Can you briefly walk me through your professional background and key projects?",
+            "expected_concepts": ["Career journey", "Key technical achievements", "Role motivation"],
+            "evaluation_rubric": "Look for clear storytelling, concise structure under 2 minutes, and alignment with target role.",
         },
         {
             "topic": "Strengths and Weaknesses",
-            "question_text": "What is your greatest technical or execution strength, and what is a genuine area of improvement you are currently addressing with deliberate practice?",
-            "expected_concepts": ["Self-awareness", "Specific concrete strength with impact", "Actionable improvement plan", "Growth mindset"],
-            "evaluation_rubric": "Avoid cliché answers like 'I work too hard'. Look for vulnerability, self-awareness, and proactive growth steps.",
+            "question_text": "What is your greatest technical strength, and what is one area you are currently working to improve?",
+            "expected_concepts": ["Self-awareness", "Specific concrete strength", "Actionable improvement plan"],
+            "evaluation_rubric": "Look for genuine self-awareness and practical steps being taken to improve.",
         },
         {
             "topic": "Career Goals",
-            "question_text": "Where do you see your engineering impact evolving over the next 2 to 3 years, and what specific competencies or leadership capabilities are you striving to master?",
-            "expected_concepts": ["Long-term engineering vision", "Technical mastery vs leadership balance", "Company value creation", "Deliberate skill roadmap"],
-            "evaluation_rubric": "Reward realistic, ambitious career paths aligned with senior engineering trajectory and continuous learning.",
+            "question_text": "Where do you see yourself professionally over the next two to three years?",
+            "expected_concepts": ["Career vision", "Technical growth", "Company value creation"],
+            "evaluation_rubric": "Reward realistic, motivated goals that show a desire to learn and grow.",
         },
         {
             "topic": "Company Fit",
-            "question_text": "What values or engineering culture principles resonate with you most in high-performing teams, and how do you ensure your daily habits reflect them?",
-            "expected_concepts": ["Cultural alignment", "Ownership and accountability", "High communication standards", "Constructive debate"],
-            "evaluation_rubric": "Evaluate cultural empathy, teamwork values, and whether candidate thrives in high-velocity, rigorous environments.",
+            "question_text": "What kind of team culture helps you do your best work?",
+            "expected_concepts": ["Team collaboration", "Ownership", "Open communication"],
+            "evaluation_rubric": "Evaluate teamwork values and cultural compatibility.",
         },
         {
             "topic": "Teamwork",
-            "question_text": "Describe a scenario where you collaborated closely with cross-functional partners (e.g. Product, Design, QA) under a tight deadline. How did you maintain alignment?",
-            "expected_concepts": ["Cross-functional communication", "Proactive dependency tracking", "Trade-off negotiation", "Shared mission focus"],
-            "evaluation_rubric": "Candidate must demonstrate high empathy, clear written updates, and collective delivery over individual heroics.",
+            "question_text": "Can you share an example of working closely with teammates to meet a tight deadline?",
+            "expected_concepts": ["Team collaboration", "Communication", "Meeting deadlines"],
+            "evaluation_rubric": "Look for collaboration, clear communication, and team-first attitude.",
         },
         {
             "topic": "Conflict Resolution",
-            "question_text": "Tell me about a time you strongly disagreed with a colleague or lead regarding a technical or delivery decision. How did you resolve the conflict constructively?",
-            "expected_concepts": ["Data-driven argumentation", "Active listening and empathy", "Agree and commit mindset", "De-escalation mechanics"],
-            "evaluation_rubric": "Look for objective, respectful conflict resolution focused on customer outcome rather than personal ego.",
+            "question_text": "How do you handle a disagreement with a colleague over a technical decision?",
+            "expected_concepts": ["Constructive discussion", "Active listening", "Focusing on project goals"],
+            "evaluation_rubric": "Look for respectful communication and objective problem-solving.",
         },
         {
             "topic": "Adaptability",
-            "question_text": "How do you handle rapid priority shifts or mid-sprint requirement changes without compromising software quality or team morale?",
-            "expected_concepts": ["Agility under ambiguity", "Scope management and triage", "Maintaining calm leadership", "Transparent stakeholder renegotiation"],
-            "evaluation_rubric": "Reward candidates who embrace ambiguity, re-evaluate critical paths quickly, and protect architectural integrity.",
+            "question_text": "How do you adjust when project requirements or priorities change unexpectedly?",
+            "expected_concepts": ["Flexibility", "Reprioritization", "Staying calm under change"],
+            "evaluation_rubric": "Reward candidates who adapt smoothly to changing priorities.",
         },
         {
             "topic": "Behavioral Questions",
-            "question_text": "Using the STAR method (Situation, Task, Action, Result), describe a high-stakes production incident or delivery challenge and how you navigated it.",
-            "expected_concepts": ["Situation context", "Specific personal actions", "Measurable engineering outcome", "Lessons learned and post-mortem"],
-            "evaluation_rubric": "Strict adherence to STAR structure. Clear personal contribution ('I' vs 'we') and quantifiable business outcome.",
+            "question_text": "Tell me about a challenging work situation and how you resolved it.",
+            "expected_concepts": ["Problem context", "Action taken", "Result achieved"],
+            "evaluation_rubric": "Look for structured explanation using situation, action taken, and outcome.",
         },
     ],
 
@@ -78,51 +78,51 @@ CURATED_QUESTIONS: Dict[str, List[Dict[str, Any]]] = {
     "pi": [
         {
             "topic": "Personal Background",
-            "question_text": "Tell me about your personal journey into software engineering. What was the catalyst that ignited your passion for technology and building systems?",
-            "expected_concepts": ["Origin story and motivation", "Curiosity and problem-solving drive", "Key inflection points", "Authentic passion"],
-            "evaluation_rubric": "Look for genuine intellectual curiosity, early experimentation, and a clear driving narrative.",
+            "question_text": "What first inspired you to get into software development?",
+            "expected_concepts": ["Personal motivation", "Interest in technology", "Early learning"],
+            "evaluation_rubric": "Look for authentic enthusiasm and curiosity for building software.",
         },
         {
             "topic": "Resume-Based Questions",
-            "question_text": "Pick the most technically challenging project listed on your resume. Walk me through the architecture, your exact contributions, and the trade-offs you navigated.",
-            "expected_concepts": ["System architecture breakdown", "Personal ownership", "Technical constraints and trade-offs", "Production results"],
-            "evaluation_rubric": "Check for deep ownership of resume claims. Candidate should effortlessly discuss deep implementation details and edge cases.",
+            "question_text": "Pick a project from your resume and explain your role in building it.",
+            "expected_concepts": ["Project architecture", "Personal contributions", "Key technologies used"],
+            "evaluation_rubric": "Check for clear ownership and practical knowledge of resume projects.",
         },
         {
             "topic": "Academic Projects",
-            "question_text": "Discuss an academic or capstone engineering project you engineered from scratch. How did you choose the tech stack and handle architectural limitations?",
-            "expected_concepts": ["Foundational system design", "Technology justification", "Overcoming resource limits", "Demonstrated rigor"],
-            "evaluation_rubric": "Reward sound technical rationale rather than using tools blindly because they are popular.",
+            "question_text": "What was the most interesting technical project you built during your studies?",
+            "expected_concepts": ["System design", "Tech stack choice", "Lessons learned"],
+            "evaluation_rubric": "Reward solid technical understanding and creative problem-solving.",
         },
         {
             "topic": "Internship Experience",
-            "question_text": "Reflect on your internship or prior industry experience. What was the biggest gap between theoretical computer science and shipping code in a real-world production codebase?",
-            "expected_concepts": ["Production readiness vs textbook code", "Observability, logging and metrics", "Legacy codebase navigation", "Team code reviews"],
-            "evaluation_rubric": "Look for practical maturity, appreciation for operational discipline, testing, and continuous deployment.",
+            "question_text": "What was the most important lesson you learned during your internship or past work?",
+            "expected_concepts": ["Real-world coding", "Team practices", "Professional growth"],
+            "evaluation_rubric": "Look for practical maturity and understanding of team development practices.",
         },
         {
             "topic": "Achievements",
-            "question_text": "What is the single engineering accomplishment you are proudest of to date? Why was it meaningful, and what measurable impact did it achieve?",
-            "expected_concepts": ["High-impact delivery", "Personal initiative", "Measurable user/system metrics", "Overcoming adversity"],
-            "evaluation_rubric": "Look for pride in technical craft, perseverance through blockers, and clear articulation of impact.",
+            "question_text": "What technical achievement are you most proud of so far, and why?",
+            "expected_concepts": ["Notable achievement", "Effort and initiative", "Measurable result"],
+            "evaluation_rubric": "Look for genuine pride in craftsmanship and ability to explain the impact.",
         },
         {
             "topic": "Challenges Faced",
-            "question_text": "Describe a project or technical initiative that did not go according to plan or failed. What went wrong, how did you recover, and what did you learn?",
-            "expected_concepts": ["Intellectual honesty", "Root cause identification", "Ownership without blaming others", "Actionable retrospection"],
-            "evaluation_rubric": "High marks for taking accountability, thoughtful post-mortem thinking, and demonstrated growth from failure.",
+            "question_text": "Tell me about a technical project that did not go as planned and what you learned from it.",
+            "expected_concepts": ["Root cause", "Taking ownership", "Key takeaways"],
+            "evaluation_rubric": "Look for honesty, accountability, and clear lessons learned from failure.",
         },
         {
             "topic": "Career Motivation",
-            "question_text": "What drives you day-to-day as an engineer? Is it user impact, architectural elegance, speed of execution, or technical complexity?",
-            "expected_concepts": ["Intrinsic engineering motivation", "Craftsmanship", "User empathy", "Energy and curiosity"],
-            "evaluation_rubric": "Authenticity and depth of self-reflection regarding what fuels their best engineering work.",
+            "question_text": "What aspects of software engineering motivate you most on a daily basis?",
+            "expected_concepts": ["Problem solving", "Building useful features", "Curiosity"],
+            "evaluation_rubric": "Evaluate enthusiasm for learning and building software.",
         },
         {
             "topic": "Future Goals",
-            "question_text": "In the emerging landscape of AI, cloud architecture, and distributed systems, how are you investing in your long-term technical competitiveness?",
-            "expected_concepts": ["Proactive continuous learning", "Hands-on side projects", "Reading engineering papers/blogs", "Future-proof competencies"],
-            "evaluation_rubric": "Evidence of proactive self-directed study, experimentation with modern tools, and deep curiosity.",
+            "question_text": "What new tools or technologies are you currently learning or excited to learn next?",
+            "expected_concepts": ["Continuous learning", "Curiosity about tech trends", "Practical application"],
+            "evaluation_rubric": "Reward proactive self-learning and technical curiosity.",
         },
     ],
 
@@ -130,51 +130,51 @@ CURATED_QUESTIONS: Dict[str, List[Dict[str, Any]]] = {
     "managerial": [
         {
             "topic": "Leadership",
-            "question_text": "How do you cultivate high psychological safety while simultaneously maintaining uncompromising standards of technical execution and delivery?",
-            "expected_concepts": ["Psychological safety", "High bar for excellence", "Blameless post-mortems", "Empowering team members"],
-            "evaluation_rubric": "Candidate must show that empathy and high standards reinforce each other rather than conflict.",
+            "question_text": "How do you help your teammates stay motivated and productive during stressful projects?",
+            "expected_concepts": ["Team support", "Clear expectations", "Encouragement"],
+            "evaluation_rubric": "Look for empathy, practical support, and maintaining high team standards.",
         },
         {
             "topic": "Decision-Making",
-            "question_text": "How do you make critical architectural or product decisions when you possess only 60% of the desired information and the cost of delay is high?",
-            "expected_concepts": ["One-way vs two-way door decisions", "Reversibility analysis", "Bias for action with mitigation", "Stakeholder consultation"],
-            "evaluation_rubric": "Reward structured decision-making frameworks (e.g. Bezos reversible decisions), fast feedback loops, and risk management.",
+            "question_text": "How do you make an important decision when you have incomplete information and limited time?",
+            "expected_concepts": ["Evaluating risks", "Consulting teammates", "Decisive action"],
+            "evaluation_rubric": "Reward structured decision-making and practical risk management.",
         },
         {
             "topic": "Team Management",
-            "question_text": "How do you manage an engineer who is technically brilliant but disruptive to team collaboration, or conversely, an eager teammate who is chronically underperforming?",
-            "expected_concepts": ["Direct, compassionate feedback", "Root cause diagnosis (skill vs will)", "Performance improvement plans", "Protecting team cohesion"],
-            "evaluation_rubric": "Look for proactive, timely intervention, clear behavioral expectations, documentation, and empathy.",
+            "question_text": "How do you give constructive feedback to a team member who is struggling?",
+            "expected_concepts": ["Clear feedback", "Empathy", "Actionable improvement plan"],
+            "evaluation_rubric": "Look for timely, compassionate communication and clear support steps.",
         },
         {
             "topic": "Conflict Resolution",
-            "question_text": "Two senior architects on your team are deadlocked on choosing between an event-driven architecture and a synchronous REST model for a critical service. How do you facilitate a resolution?",
-            "expected_concepts": ["Establishing shared evaluation criteria", "Spike / POC benchmarking", "Focus on business SLOs", "Decide and align protocol"],
-            "evaluation_rubric": "Avoid arbitrary executive vetoes. Candidate should anchor debates in latency SLOs, operational complexity, and team capabilities.",
+            "question_text": "How do you resolve a technical disagreement between two engineers on your team?",
+            "expected_concepts": ["Listening to both perspectives", "Focusing on data and user needs", "Reaching consensus"],
+            "evaluation_rubric": "Look for objective, respectful mediation focused on project goals.",
         },
         {
             "topic": "Delegation",
-            "question_text": "How do you determine what to delegate versus what to handle personally? How do you maintain visibility and quality without micromanaging?",
-            "expected_concepts": ["Context over control", "Milestone checkpoints and design docs", "Stretching junior engineers", "Avoiding bottlenecks"],
-            "evaluation_rubric": "Strong leaders provide clear context, definitions of done, and support while giving engineers room to solve the problem.",
+            "question_text": "How do you decide which tasks to delegate and which to handle yourself?",
+            "expected_concepts": ["Assessing skills", "Providing context", "Tracking progress without micromanaging"],
+            "evaluation_rubric": "Look for clear task ownership, mentoring opportunities, and accountability.",
         },
         {
             "topic": "Prioritization",
-            "question_text": "Your team faces urgent technical debt, business feature requests from sales, and critical security patch requirements, all exceeding sprint capacity. How do you prioritize?",
-            "expected_concepts": ["Eisenhower matrix / RICE scoring", "Technical debt budget (e.g. 20% rule)", "Risk assessment of security items", "Transparent executive trade-offs"],
-            "evaluation_rubric": "Look for balanced portfolio management where tech debt and security are not perpetually deferred for short-term features.",
+            "question_text": "How do you prioritize when you have urgent bug fixes, new features, and technical debt all due at once?",
+            "expected_concepts": ["Impact vs urgency", "Stakeholder communication", "Setting clear priorities"],
+            "evaluation_rubric": "Look for clear prioritization frameworks and transparent communication.",
         },
         {
             "topic": "Stakeholder Communication",
-            "question_text": "A major production milestone is at risk of slipping by 3 weeks. How and when do you communicate this to executive stakeholders, and what mitigation options do you propose?",
-            "expected_concepts": ["No surprises culture", "Early proactive warning", "Option 1: Scope reduction, Option 2: Phased rollout", "Transparent post-incident remediation"],
-            "evaluation_rubric": "Evaluate courage to deliver bad news early, paired with constructive trade-offs rather than excuses.",
+            "question_text": "How do you communicate a project delay to stakeholders and manage their expectations?",
+            "expected_concepts": ["Early warning", "Clear explanation", "Proposed solutions and revised timeline"],
+            "evaluation_rubric": "Reward early, transparent communication and practical solutions.",
         },
         {
             "topic": "Situational Judgment",
-            "question_text": "During peak traffic hours, a critical customer-facing feature degrades performance system-wide. The business wants to keep it live for revenue, but engineering recommends immediate kill-switch. What do you do?",
-            "expected_concepts": ["Customer trust & system availability first", "Kill-switch / feature flag execution", "Degraded mode fallback", "Executive communication with revenue impact"],
-            "evaluation_rubric": "System stability and data integrity take priority over localized short-term revenue. Look for decisive execution.",
+            "question_text": "What steps would you take if a critical bug was found in production shortly before a major release?",
+            "expected_concepts": ["Assessing severity", "Immediate containment", "Clear team communication"],
+            "evaluation_rubric": "Look for calm triage, quick assessment of impact, and decisive action.",
         },
     ],
 }
@@ -212,209 +212,243 @@ def get_curated_fallback_question(role: str, round_type: str, topic: str, order:
     # 2. Technical round: generate tailored role-specific questions
     role_clean = role.strip()
     
-    technical_templates = {
-        "Data Structures and Algorithms": {
-            "question_text": f"For a high-concurrency {role_clean} application, explain how you would design an efficient LRU Cache or Rate Limiter. Discuss time/space complexity, data structure choices, and thread safety under heavy write contention.",
-            "expected_concepts": ["Hash Map + Doubly Linked List", "O(1) get/put operations", "Locking / ReadWriteLock / ConcurrentHashMap", "Memory footprint and eviction policies"],
-            "rubric": "Candidate must explain time complexities and address concurrent access trade-offs.",
-        },
-        "REST APIs": {
-            "question_text": f"Design a resilient, backward-compatible REST API for a high-volume service in your role as a {role_clean}. How do you structure versioning, idempotency keys for mutations, pagination, and rate limiting?",
-            "expected_concepts": ["Idempotency keys (IETF standard)", "Cursor-based vs offset pagination", "API versioning strategies", "HTTP status code semantics (409, 429, 503)"],
-            "rubric": "Look for practical knowledge of idempotency headers, pagination scale limits, and graceful error envelopes.",
-        },
-        "Database Design and SQL": {
-            "question_text": f"Compare indexing strategies (B-Tree, Hash, GIN) for a database schema handling millions of writes daily. Explain how indexing impacts write amplification, index bloat, and query execution plans via EXPLAIN ANALYZE.",
-            "expected_concepts": ["B-Tree range scans vs Hash lookups", "Write amplification on inserts/updates", "Covering indexes / index-only scans", "Execution plan analysis"],
-            "rubric": "Reward mechanical sympathy for disk I/O, cache locality, and indexing cost trade-offs.",
-        },
-        "Authentication and Authorization": {
-            "question_text": f"Explain the architectural security trade-offs between Stateless JWTs and Stateful Server Sessions in distributed microservices. How do you handle token revocation, key rotation, and RBAC vs ABAC permissions?",
-            "expected_concepts": ["JWT signature verification without DB lookup", "Revocation difficulty and Redis blacklists", "Short-lived access tokens with refresh tokens", "JWKS key rotation and asymmetric cryptography (RS256)"],
-            "rubric": "Candidate must address token revocation trade-offs and cryptographic signature validation.",
-        },
-        "System Design": {
-            "question_text": f"Design a distributed notifications and alert dispatching service capable of delivering millions of messages with guaranteed at-least-once delivery, deduplication, and multi-channel routing (Email, Push, SMS).",
-            "expected_concepts": ["Message queues (Kafka / SQS / RabbitMQ)", "Idempotency and deduplication filters", "Dead letter queues (DLQ) and exponential backoff", "Fan-out architecture and rate-limiting per provider"],
-            "rubric": "Look for decoupling through queues, circuit breakers, backpressure, and failure isolation.",
-        },
-        "Caching and Performance": {
-            "question_text": f"Compare Cache-Aside, Write-Through, and Write-Behind caching patterns. How do you prevent and resolve Cache Stampede (Thundering Herd), Cache Penetration, and Cache Avalanche under sudden traffic spikes?",
-            "expected_concepts": ["Cache-Aside mechanics", "Mutual exclusion locks (Mutex) for stampede prevention", "Bloom filters for cache penetration", "Jitter / random TTL expiration for avalanche prevention"],
-            "rubric": "Look for precise solutions to stampede, penetration, and TTL jittering.",
-        },
-        "Concurrency": {
-            "question_text": f"Explain the difference between synchronous blocking execution, non-blocking asynchronous event loops, and modern virtual threads (coroutines). Discuss memory overhead, context-switch penalties, and I/O multiplexing via epoll.",
-            "expected_concepts": ["OS thread stack memory (~1MB) vs lightweight fibers", "Epoll / kqueue non-blocking I/O multiplexing", "Context switching overhead and CPU cache thrashing", "Cooperative vs preemptive scheduling"],
-            "rubric": "Reward deep mechanical understanding of thread memory overhead, event loops, and thread pool sizing.",
-        },
-        "Testing and Debugging": {
-            "question_text": f"Describe your strategy for diagnosing a non-deterministic latency spike or memory leak in a production service. Walk through the telemetry, profilers, heap dumps, and distributed tracing tools you utilize.",
-            "expected_concepts": ["APM metrics (P99 / P99.9 latencies)", "Distributed tracing with OpenTelemetry / traceparent", "Heap memory dumps and GC logs analysis", "Synthetic load testing and regression reproduction"],
-            "rubric": "Candidate should exhibit systematic debugging methodology rather than trial-and-error guesswork.",
-        },
-        "HTML and CSS": {
-            "question_text": "Explain the Critical Rendering Path in modern browsers. How do DOM and CSSOM construction, layout reflows, and composite repaints affect First Contentful Paint (FCP) and Largest Contentful Paint (LCP)?",
-            "expected_concepts": ["DOM & CSSOM construction", "Render tree generation", "Reflow vs Repaint triggers", "GPU layer promotion (transform/opacity)"],
-            "rubric": "Look for understanding of browser rendering mechanics and Core Web Vitals optimization.",
-        },
-        "JavaScript": {
-            "question_text": "Explain the JavaScript Event Loop, Call Stack, Microtask queue (Promises), and Macrotask queue (setTimeout, I/O). In what exact order do tasks execute, and how does event loop starvation occur?",
-            "expected_concepts": ["Call stack execution", "Microtasks (Promise.then, queueMicrotask) priority", "Macrotask queue lifecycle", "Starvation via recursive microtasks"],
-            "rubric": "Candidate must accurately detail microtask vs macrotask execution order and non-blocking scheduling.",
-        },
-        "React and Components": {
-            "question_text": "Explain how React's reconciliation algorithm (Fiber Architecture) works. Discuss how state updates are prioritized, how keys preserve identity, and when to use useMemo vs React.memo vs useCallback.",
-            "expected_concepts": ["Fiber nodes and double buffering", "Concurrent rendering & lane priority", "Virtual DOM diffing with keys", "Memoization trade-offs"],
-            "rubric": "Look for realistic understanding of reconciliation and avoiding premature memoization.",
-        },
-        "State Management": {
-            "question_text": "Compare server-state caching (TanStack Query / SWR) against client-side global state (Zustand / Redux). When is an external state store an anti-pattern versus a necessity?",
-            "expected_concepts": ["Server state (stale-while-revalidate, caching, deduplication)", "Client UI state separation", "Normalized state trees", "Selector performance optimization"],
-            "rubric": "Candidate must distinguish server cache synchronization from pure ephemeral client state.",
-        },
-        "Core Java": {
-            "question_text": "Explain the Java Memory Model (JMM), the happens-before relationship, and the internal mechanics of the 'volatile' keyword versus synchronized blocks and Atomic classes.",
-            "expected_concepts": ["Happens-before guarantee", "CPU cache coherency & memory barriers", "Volatile read/write semantics", "CAS (Compare-And-Swap) operations"],
-            "rubric": "Look for low-level understanding of hardware memory barriers, instruction reordering, and visibility.",
-        },
-        "JVM and Garbage Collection": {
-            "question_text": "Compare modern JVM Garbage Collectors: G1GC, ZGC, and Shenandoah. Discuss colored pointers, concurrent compaction, throughput overhead, and sub-millisecond tail latency targets.",
-            "expected_concepts": ["Generational G1 regions", "Load barriers and colored pointers in ZGC", "Throughput penalty vs pause time SLA", "Humongous object allocation challenges"],
-            "rubric": "Reward nuanced understanding of trade-offs between peak throughput and deterministic low latency.",
-        },
-        "Spring Boot": {
-            "question_text": "Explain Spring Bean lifecycles, BeanPostProcessors, and dynamic AOP proxy creation (CGLIB vs JDK Dynamic Proxies). How do these mechanisms power transactional boundaries (@Transactional)?",
-            "expected_concepts": ["BeanFactory vs ApplicationContext", "CGLIB subclassing vs JDK interface proxying", "Self-invocation transaction rollback pitfalls", "Bean creation and dependency injection phases"],
-            "rubric": "Candidate must explain proxy-based AOP and why invoking @Transactional methods internally bypasses interception.",
-        },
-        "SQL and Joins": {
-            "question_text": "Explain the internal execution differences between Nested Loop Join, Hash Join, and Merge Join in relational query engines. When does the query planner choose each?",
-            "expected_concepts": ["Nested loop with index lookups", "In-memory hash table construction", "Sort-merge join for pre-sorted inputs", "Memory constraints and temporary disk spills"],
-            "rubric": "Look for understanding of optimizer costing, memory budgets, and join algorithm trade-offs.",
-        },
-        "Python and Pandas": {
-            "question_text": "How does vectorization in Pandas and NumPy achieve 100x performance gains over native Python loops? Explain underlying C arrays, memory contiguous buffers, and memory-efficient data types (categoricals, chunking).",
-            "expected_concepts": ["SIMD vectorization and C-contiguous arrays", "GIL bypass in numerical computations", "Memory optimization via categorical dtypes", "Chunked processing for datasets exceeding RAM"],
-            "rubric": "Reward understanding of memory representation, avoiding Python object overhead, and chunking.",
-        },
-        "Statistics": {
-            "question_text": "Explain Type I vs Type II errors, statistical power, and p-value interpretation in A/B testing experiments. How do you prevent Peeking Problems and calculate minimum sample size?",
-            "expected_concepts": ["Null hypothesis testing", "Type I (False Positive) vs Type II (False Negative)", "Sample size calculation based on MDE", "Sequential testing / Bonferroni correction for peeking"],
-            "rubric": "Candidate must explain the mathematical danger of stopping tests early when significance is first reached.",
-        },
-        "Apex": {
-            "question_text": "Explain the Salesforce Execution Governor Limits for SOQL queries, DML statements, and heap size. How do you structure bulkified Apex trigger frameworks to process up to 200 records safely?",
-            "expected_concepts": ["Bulkification principles (Sets and Maps)", "Trigger handler design patterns", "SOQL query and DML limits per transaction", "Asynchronous Apex (Queueable / Batch) offloading"],
-            "rubric": "Strict adherence to bulkified architecture, zero queries inside loops, and governor limit mitigation.",
-        },
-    }
-
-    # Match topic
-    for key, data in technical_templates.items():
-        if key.lower() in topic.lower() or topic.lower() in key.lower():
-            return {
-                "question_text": data["question_text"],
-                "topic": topic,
-                "difficulty": difficulty,
-                "expected_concepts": data["expected_concepts"],
-                "evaluation_rubric": data["rubric"],
-                "order": order
-            }
-
-    # Multi-variant technical questions ensuring distinct text across all question orders
-    technical_variants: Dict[str, List[Dict[str, Any]]] = {
-        "Data Structures and Algorithms": [
+    technical_topics = {
+        "Data Structures": [
             {
-                "question_text": f"For a high-concurrency {role_clean} application, explain how you would design an efficient LRU Cache or Rate Limiter. Discuss time/space complexity, data structure choices, and thread safety under heavy write contention.",
-                "expected_concepts": ["Hash Map + Doubly Linked List", "O(1) get/put operations", "Locking / ReadWriteLock / ConcurrentHashMap", "Memory footprint and eviction policies"],
-                "rubric": "Candidate must explain time complexities and address concurrent access trade-offs.",
+                "question_text": "How does an LRU cache work, and which data structures would you use to build it?",
+                "expected_concepts": ["Hash Map + Doubly Linked List", "O(1) get and put operations", "Eviction of least recently used items"],
+                "rubric": "Look for O(1) operations using a hash map combined with a doubly linked list."
             },
             {
-                "question_text": f"Given a continuous stream of financial transactions in a {role_clean} system, explain how you would find the Top-K most frequent entities in real-time with bounded memory. Compare Min-Heap vs Count-Min Sketch.",
-                "expected_concepts": ["Min-Heap with frequency map", "Probabilistic data structures (Count-Min Sketch / HyperLogLog)", "Space complexity bounds", "Sliding window decay mechanics"],
-                "rubric": "Look for practical knowledge of streaming data constraints and probabilistic algorithms.",
+                "question_text": "What is the difference between an array and a linked list in terms of memory and performance?",
+                "expected_concepts": ["Contiguous memory", "O(1) random access vs O(n) traversal", "Insertion and deletion costs"],
+                "rubric": "Candidate should contrast contiguous memory access with pointer-based node traversal."
             },
             {
-                "question_text": f"Explain how you would detect and resolve deadlocks in a distributed dependency graph. Discuss cycle detection algorithms (Tarjan's vs Kahn's Topological Sort) and operational prevention techniques.",
-                "expected_concepts": ["Directed Acyclic Graphs (DAG)", "Topological Sort / DFS cycle detection", "Lock ordering conventions", "Deadlock detection vs avoidance (Banker's Algorithm)"],
-                "rubric": "Assess algorithmic depth in graph traversal and operational deadlock avoidance.",
+                "question_text": "How do you detect a cycle in a linked list or directed graph?",
+                "expected_concepts": ["Fast and slow pointers (Floyd's algorithm)", "Visited set or DFS coloring", "Time complexity O(n)"],
+                "rubric": "Reward Floyd's cycle-finding algorithm or DFS visited set traversal."
             }
         ],
         "REST APIs": [
             {
-                "question_text": f"Design a resilient, backward-compatible REST API for a high-volume service in your role as a {role_clean}. How do you structure versioning, idempotency keys for mutations, pagination, and rate limiting?",
-                "expected_concepts": ["Idempotency keys (IETF standard)", "Cursor-based vs offset pagination", "API versioning strategies", "HTTP status code semantics (409, 429, 503)"],
-                "rubric": "Look for practical knowledge of idempotency headers, pagination scale limits, and graceful error envelopes.",
+                "question_text": "What does idempotency mean in REST APIs, and which HTTP methods are idempotent?",
+                "expected_concepts": ["Idempotent definition", "GET, PUT, DELETE idempotency", "POST non-idempotency", "Idempotency keys"],
+                "rubric": "Candidate must clearly define idempotency and identify which HTTP methods are idempotent."
             },
             {
-                "question_text": f"Compare REST against gRPC and GraphQL for microservice communication in a {role_clean} infrastructure. Under what specific traffic patterns, payload sizes, and latency requirements would you choose each?",
-                "expected_concepts": ["Protobuf binary serialization vs JSON", "HTTP/2 multiplexing vs HTTP/1.1 head-of-line blocking", "Over-fetching vs under-fetching in GraphQL", "Network payload overhead and CPU deserialization cost"],
-                "rubric": "Reward concrete architectural rationale grounded in network efficiency and developer ergonomics.",
+                "question_text": "How do you design pagination and versioning for a public REST API?",
+                "expected_concepts": ["Cursor vs offset pagination", "URI or header versioning", "Performance on large datasets"],
+                "rubric": "Candidate should discuss cursor-based pagination and URL/header versioning."
+            },
+            {
+                "question_text": "What is the difference between 401 Unauthorized and 403 Forbidden HTTP status codes?",
+                "expected_concepts": ["Authentication vs authorization", "401 missing credentials", "403 insufficient permissions"],
+                "rubric": "Candidate must distinguish authentication (401) from authorization (403)."
             }
         ],
-        "Database Design and SQL": [
+        "Database": [
             {
-                "question_text": f"Compare indexing strategies (B-Tree, Hash, GIN) for a database schema handling millions of writes daily. Explain how indexing impacts write amplification, index bloat, and query execution plans via EXPLAIN ANALYZE.",
-                "expected_concepts": ["B-Tree range scans vs Hash lookups", "Write amplification on inserts/updates", "Covering indexes / index-only scans", "Execution plan analysis"],
-                "rubric": "Reward mechanical sympathy for disk I/O, cache locality, and indexing cost trade-offs.",
+                "question_text": "What is the difference between a clustered index and a non-clustered index?",
+                "expected_concepts": ["Physical data ordering", "B-Tree structure", "Lookup performance"],
+                "rubric": "Candidate must explain how clustered indexes define table storage order."
             },
             {
-                "question_text": f"In a distributed database architecture, explain how Multi-Version Concurrency Control (MVCC) operates under Snapshot Isolation. How does it resolve Write Skew anomalies and mitigate lock contention?",
-                "expected_concepts": ["Tuple versioning and transaction snapshots", "Non-blocking reads during concurrent writes", "Write skew vs phantom reads", "Vacuuming / table bloat remediation"],
-                "rubric": "Candidate must explain MVCC mechanics and how snapshot isolation differs from strict serializability.",
+                "question_text": "What are ACID properties in relational databases, and why are they important?",
+                "expected_concepts": ["Atomicity, Consistency, Isolation, Durability", "Transaction rollbacks", "Data integrity"],
+                "rubric": "Candidate should explain each ACID property with a simple example."
             },
             {
-                "question_text": f"Design a database partitioning and sharding strategy for an e-commerce ledger table with 500 million records. How do you choose the partition key, handle cross-shard queries, and execute online schema migrations with zero downtime?",
-                "expected_concepts": ["Range vs Hash vs Composite partition keys", "Scatter-gather query penalties", "Dual-writing and shadow tables for migrations", "Re-sharding and consistent hashing"],
-                "rubric": "Look for realistic zero-downtime migration patterns (expand/contract, dual-write).",
+                "question_text": "When would you choose a NoSQL database over a relational database?",
+                "expected_concepts": ["Schema flexibility", "Horizontal scaling", "Document vs relational data models"],
+                "rubric": "Look for realistic trade-offs between schema flexibility, joins, and horizontal scale."
+            }
+        ],
+        "Authentication": [
+            {
+                "question_text": "How does JWT authentication work, and what are its main advantages?",
+                "expected_concepts": ["Stateless verification", "Header, payload, signature", "Cryptographic signature validation"],
+                "rubric": "Candidate must explain how the server verifies token signatures without database lookups."
+            },
+            {
+                "question_text": "What is the difference between session cookies and JWT tokens for user authentication?",
+                "expected_concepts": ["Stateful server sessions", "Stateless tokens", "Revocation trade-offs", "Storage security"],
+                "rubric": "Compare database session lookup overhead with JWT statelessness and revocation challenges."
             }
         ],
         "System Design": [
             {
-                "question_text": f"Design a distributed notifications and alert dispatching service capable of delivering millions of messages with guaranteed at-least-once delivery, deduplication, and multi-channel routing (Email, Push, SMS).",
-                "expected_concepts": ["Message queues (Kafka / SQS / RabbitMQ)", "Idempotency and deduplication filters", "Dead letter queues (DLQ) and exponential backoff", "Fan-out architecture and rate-limiting per provider"],
-                "rubric": "Look for decoupling through queues, circuit breakers, backpressure, and failure isolation.",
+                "question_text": "How would you design a simple URL shortener service like Bitly?",
+                "expected_concepts": ["Unique hash/Base62 encoding", "Fast key-value lookup", "Database redirect mechanics"],
+                "rubric": "Assess hash generation, encoding, and redirect response status codes (301 vs 302)."
             },
             {
-                "question_text": f"Architect a real-time collaborative document editing system (similar to Google Docs / Figma). Compare Operational Transformation (OT) against Conflict-free Replicated Data Types (CRDTs) under network partitions.",
-                "expected_concepts": ["Centralized server OT vs decentralized CRDTs", "State-based vs operation-based CRDTs", "Vector clocks and causality tracking", "WebSocket connection pooling and reconnection recovery"],
-                "rubric": "Deep dive into state synchronization, causality, and convergence properties.",
+                "question_text": "What is the difference between horizontal and vertical scaling in system architecture?",
+                "expected_concepts": ["Adding more servers vs bigger hardware", "Load balancing", "Cost and ceiling limits"],
+                "rubric": "Candidate should explain scaling limits, load balancers, and cost differences."
             },
             {
-                "question_text": f"Design a globally distributed rate limiting and DDoS mitigation gateway protecting backend APIs from sudden bursts. Discuss Token Bucket vs Leaky Bucket vs Sliding Window Log, and distributed coordination using Redis / Memcached.",
-                "expected_concepts": ["Token Bucket vs Sliding Window Counter", "Race conditions and Redis Lua scripts", "Local in-memory caching with asynchronous sync", "Graceful 429 response envelopes with Retry-After"],
-                "rubric": "Assess concurrency handling in counters, network overhead of Redis round-trips, and fail-open vs fail-closed strategies.",
+                "question_text": "How do message queues help decouple components in a distributed system?",
+                "expected_concepts": ["Asynchronous processing", "Buffering traffic spikes", "Producer-consumer isolation"],
+                "rubric": "Candidate should explain how queues buffer load and isolate component failures."
             }
         ],
-        "Caching and Performance": [
+        "Caching": [
             {
-                "question_text": f"Compare Cache-Aside, Write-Through, and Write-Behind caching patterns. How do you prevent and resolve Cache Stampede (Thundering Herd), Cache Penetration, and Cache Avalanche under sudden traffic spikes?",
-                "expected_concepts": ["Cache-Aside mechanics", "Mutual exclusion locks (Mutex) for stampede prevention", "Bloom filters for cache penetration", "Jitter / random TTL expiration for avalanche prevention"],
-                "rubric": "Look for precise solutions to stampede, penetration, and TTL jittering.",
+                "question_text": "What is the difference between cache-aside and write-through caching?",
+                "expected_concepts": ["Application-managed caching", "Synchronous cache write", "Staleness and consistency"],
+                "rubric": "Candidate must explain read/write flow in cache-aside versus write-through."
             },
             {
-                "question_text": f"Explain memory management in in-memory caches like Redis. Discuss maxmemory eviction policies (allkeys-lru, volatile-lfu, volatile-ttl), memory fragmentation ratio, and active vs passive expiration mechanics.",
-                "expected_concepts": ["Approximated LRU vs LFU counter algorithms", "jemalloc memory allocator and fragmentation", "Reactive deletion on read vs periodic sampling active expiry", "Cluster replication lag and stale reads"],
-                "rubric": "Candidate should detail memory fragmentation and eviction mechanics under memory pressure.",
+                "question_text": "What is a cache stampede or thundering herd problem, and how do you prevent it?",
+                "expected_concepts": ["Simultaneous cache miss", "Database overload", "Mutex locks or probabilistic early expiration"],
+                "rubric": "Look for understanding of locking or early recomputation to prevent stampedes."
             }
         ],
         "Concurrency": [
             {
-                "question_text": f"Explain the difference between synchronous blocking execution, non-blocking asynchronous event loops, and modern virtual threads (coroutines). Discuss memory overhead, context-switch penalties, and I/O multiplexing via epoll.",
-                "expected_concepts": ["OS thread stack memory (~1MB) vs lightweight fibers", "Epoll / kqueue non-blocking I/O multiplexing", "Context switching overhead and CPU cache thrashing", "Cooperative vs preemptive scheduling"],
-                "rubric": "Reward deep mechanical understanding of thread memory overhead, event loops, and thread pool sizing.",
+                "question_text": "What is the difference between a process and a thread?",
+                "expected_concepts": ["Isolated memory space", "Shared memory between threads", "Context switching overhead"],
+                "rubric": "Candidate must contrast separate address spaces with shared thread memory."
             },
             {
-                "question_text": f"In a multithreaded {role_clean} environment, explain Compare-And-Swap (CAS) atomic operations and lock-free data structures. How do lock-free queues prevent priority inversion and avoid kernel transitions?",
-                "expected_concepts": ["Hardware atomic instructions (CMPXCHG)", "ABA problem and tagged pointers", "Lock-free vs wait-free guarantees", "Memory barriers and CPU cache line invalidation"],
-                "rubric": "Assess knowledge of lock-free primitives and hardware cache coherence.",
+                "question_text": "What is a race condition, and how can you prevent it in concurrent code?",
+                "expected_concepts": ["Concurrent access to shared state", "Unpredictable ordering", "Locks, mutexes, or atomic variables"],
+                "rubric": "Reward practical knowledge of locking or atomic primitives to protect shared data."
+            },
+            {
+                "question_text": "What causes a deadlock in multithreaded applications, and how can it be avoided?",
+                "expected_concepts": ["Mutual exclusion", "Hold and wait", "Circular lock ordering", "Lock timeouts"],
+                "rubric": "Candidate should explain circular wait conditions and lock ordering strategies."
+            }
+        ],
+        "Testing": [
+            {
+                "question_text": "What is the difference between unit testing, integration testing, and end-to-end testing?",
+                "expected_concepts": ["Test isolation", "Component interactions", "Full user flow validation", "Test pyramid"],
+                "rubric": "Candidate should explain the scope, speed, and confidence trade-offs of each test type."
+            },
+            {
+                "question_text": "How do you systematically investigate and fix a memory leak in a production service?",
+                "expected_concepts": ["Memory profiling", "Heap dumps analysis", "Identifying uncollected references"],
+                "rubric": "Look for systematic use of profilers, heap snapshots, and telemetry."
+            }
+        ],
+        "HTML": [
+            {
+                "question_text": "What is the CSS box model, and how does box-sizing affect element sizing?",
+                "expected_concepts": ["Content, padding, border, margin", "content-box vs border-box", "Layout sizing calculations"],
+                "rubric": "Candidate must explain the layers of the box model and how border-box simplifies layouts."
+            },
+            {
+                "question_text": "What is the difference between CSS Flexbox and CSS Grid, and when would you use each?",
+                "expected_concepts": ["One-dimensional vs two-dimensional layout", "Component alignment", "Page grid structure"],
+                "rubric": "Candidate should explain that Flexbox is 1D (row/col) and Grid is 2D (rows and columns)."
+            }
+        ],
+        "JavaScript": [
+            {
+                "question_text": "How does the JavaScript event loop handle asynchronous tasks and promises?",
+                "expected_concepts": ["Call stack", "Microtask queue (Promises)", "Macrotask queue (setTimeout)", "Execution order"],
+                "rubric": "Candidate must explain how microtasks run before the next macrotask in the event loop."
+            },
+            {
+                "question_text": "What is the difference between let, const, and var in JavaScript?",
+                "expected_concepts": ["Block scope vs function scope", "Hoisting behavior", "Reassignment rules"],
+                "rubric": "Candidate should detail scoping rules and hoisting differences."
+            },
+            {
+                "question_text": "What is a closure in JavaScript, and what is a practical use case for it?",
+                "expected_concepts": ["Lexical scoping", "Access to outer function variables", "Data privacy or function factories"],
+                "rubric": "Candidate should clearly describe a function retaining access to its outer lexical scope."
+            }
+        ],
+        "React": [
+            {
+                "question_text": "What is the Virtual DOM in React, and how does it make UI updates efficient?",
+                "expected_concepts": ["In-memory representation", "Diffing algorithm", "Batched DOM mutations"],
+                "rubric": "Candidate should explain that React diffs the Virtual DOM to minimize real DOM operations."
+            },
+            {
+                "question_text": "What are the rules of React Hooks, and when would you use useEffect?",
+                "expected_concepts": ["Call at top level only", "Side effects handling", "Dependency array lifecycle"],
+                "rubric": "Candidate should state hooks cannot be called inside loops/conditions and explain dependency arrays."
+            },
+            {
+                "question_text": "What is the difference between props and state in React components?",
+                "expected_concepts": ["Props passed down and immutable", "State managed internally and mutable via setter", "Component re-rendering"],
+                "rubric": "Candidate must distinguish external read-only props from internal reactive state."
+            }
+        ],
+        "State Management": [
+            {
+                "question_text": "When should you use local component state versus a global state store like Redux or Zustand?",
+                "expected_concepts": ["Prop drilling prevention", "Shared cross-component state", "Avoiding unnecessary complexity"],
+                "rubric": "Candidate should explain when global state is needed versus keeping state local."
+            },
+            {
+                "question_text": "What advantages do libraries like React Query provide for managing server data?",
+                "expected_concepts": ["Automatic caching", "Deduplication of requests", "Background refetching", "Loading and error states"],
+                "rubric": "Look for understanding of caching, stale-while-revalidate, and simplified async state."
+            }
+        ],
+        "Java": [
+            {
+                "question_text": "What is the difference between an ArrayList and a LinkedList in Java?",
+                "expected_concepts": ["Dynamic resizable array", "Doubly linked nodes", "Random access O(1) vs traversal O(n)"],
+                "rubric": "Candidate must compare contiguous array indexing with node pointer navigation."
+            },
+            {
+                "question_text": "How does garbage collection work in the Java Virtual Machine?",
+                "expected_concepts": ["Heap generations (Young/Old)", "Mark and sweep algorithm", "Stop-the-world pauses"],
+                "rubric": "Candidate should explain generational heap division and mark-and-sweep collection."
+            },
+            {
+                "question_text": "What does the final keyword mean when applied to a variable, method, or class in Java?",
+                "expected_concepts": ["Constants / unchangeable reference", "Method cannot be overridden", "Class cannot be subclassed"],
+                "rubric": "Candidate should clearly explain the behavior of 'final' for variables, methods, and classes."
+            }
+        ],
+        "Spring": [
+            {
+                "question_text": "What is Dependency Injection in Spring Boot, and why is it useful?",
+                "expected_concepts": ["Inversion of Control (IoC)", "Decoupled components", "Ease of unit testing"],
+                "rubric": "Candidate should explain IoC container bean wiring and how it facilitates testing."
+            },
+            {
+                "question_text": "What is the difference between @Component, @Service, and @Repository in Spring?",
+                "expected_concepts": ["Stereotype annotations", "Business logic layer (@Service)", "Data access and exception translation (@Repository)"],
+                "rubric": "Candidate should explain architectural layers and automated exception translation."
+            }
+        ],
+        "Python": [
+            {
+                "question_text": "What is the difference between a Python list and a NumPy array?",
+                "expected_concepts": ["Heterogeneous pointers vs contiguous typed memory", "Vectorized operations", "Memory efficiency"],
+                "rubric": "Candidate should explain contiguous C-style memory in NumPy versus Python object pointer arrays."
+            },
+            {
+                "question_text": "How do Python generators work, and when would you use the yield keyword?",
+                "expected_concepts": ["Lazy evaluation", "Memory efficiency on large streams", "State preservation across iterations"],
+                "rubric": "Candidate should explain memory-efficient iteration without loading entire datasets into RAM."
+            }
+        ],
+        "Salesforce": [
+            {
+                "question_text": "What are Salesforce governor limits, and how do you write code that respects them?",
+                "expected_concepts": ["SOQL query limits", "DML statement limits", "Bulkification with collections"],
+                "rubric": "Candidate should emphasize never querying inside loops and bulkifying triggers."
+            },
+            {
+                "question_text": "What is the difference between a before trigger and an after trigger in Apex?",
+                "expected_concepts": ["Updating fields on same record", "Access to system-generated IDs", "Read-only Trigger.new in after triggers"],
+                "rubric": "Candidate should explain before triggers for validation/updates and after triggers for related record logic."
             }
         ]
     }
 
-    # Match topic in variants
-    for key, variants in technical_variants.items():
+    # Match topic in technical topics
+    for key, variants in technical_topics.items():
         if key.lower() in topic.lower() or topic.lower() in key.lower():
             chosen = variants[(order - 1) % len(variants)]
             return {
@@ -428,19 +462,26 @@ def get_curated_fallback_question(role: str, round_type: str, topic: str, order:
 
     # Progressive generic technical fallback customized by order
     focus_aspects = [
-        ("architectural trade-offs and scaling bottlenecks", ["Scalability limits", "Latency vs throughput", "Component decoupling"]),
-        ("failure modes, circuit breakers, and disaster recovery", ["Failure isolation", "Circuit breaker patterns", "Degraded fallback states"]),
-        ("data integrity, race conditions, and concurrency guarantees", ["Concurrency controls", "Data consistency", "Idempotency under retries"]),
-        ("observability, distributed tracing, and production telemetry", ["P99 latency tracking", "Distributed tracing context", "Synthetic health probes"]),
+        ("performance and scaling", ["Scalability limits", "Latency vs throughput", "Component decoupling"]),
+        ("failure handling and recovery", ["Failure isolation", "Circuit breaker patterns", "Degraded fallback states"]),
+        ("data integrity and concurrency", ["Concurrency controls", "Data consistency", "Idempotency under retries"]),
+        ("observability and monitoring", ["P99 latency tracking", "Distributed tracing context", "Synthetic health probes"]),
     ]
-    aspect_text, aspect_concepts = focus_aspects[(order - 1) % len(focus_aspects)]
+    _, aspect_concepts = focus_aspects[(order - 1) % len(focus_aspects)]
+    simple_questions = [
+        f"What are the main performance trade-offs and scaling considerations when using {topic}?",
+        f"How do you handle system failures and error recovery in {topic}?",
+        f"How do you prevent data inconsistencies and race conditions when working with {topic}?",
+        f"What key metrics and logging would you monitor to ensure {topic} runs reliably in production?",
+    ]
+    question_text = simple_questions[(order - 1) % len(simple_questions)]
     
     return {
-        "question_text": f"As a {role_clean} targeting {difficulty} seniority, analyze {topic} with specific focus on {aspect_text}. Walk through concrete production constraints and mitigation strategies.",
+        "question_text": question_text,
         "topic": topic,
         "difficulty": difficulty,
         "expected_concepts": [f"Core mechanics of {topic}"] + aspect_concepts,
-        "evaluation_rubric": f"Assess candidate's practical depth in {topic}, realistic trade-off analysis, and production engineering maturity.",
+        "evaluation_rubric": f"Assess candidate's practical depth in {topic} and ability to explain solutions clearly.",
         "order": order
     }
 
@@ -478,15 +519,24 @@ async def generate_questions_for_interview(
 
     # Attempt Batch Groq Generation for high performance and guaranteed diversity
     system_prompt = (
-        "You are PrepPulse AI, an elite principal engineer and interview bar-raiser. "
-        "Generate realistic, rigorous, completely unique interview questions for a high-stakes interview. "
-        "CRITICAL RULE: Every single question MUST have completely unique question text, distinct topic focus, and deep rubric. "
-        "Do NOT repeat questions or return boilerplate text."
+        "You are PrepPulse AI, an expert interview coach and interviewer. "
+        "Generate clear, concise, and easy-to-understand interview questions in simple English. "
+        "CRITICAL RULES: "
+        "1. Use simple, direct, conversational English. "
+        "2. Keep each question strictly to 1 or 2 short sentences. "
+        "3. Ask only one main question at a time—avoid wordy preambles, complicated jargon, and long scenarios. "
+        "4. For technical rounds, ensure questions are practical, clear, and technically focused. "
+        "5. For HR, Behavioral, and Personal rounds, use warm, natural, and friendly phrasing. "
+        "6. Every single question MUST have unique wording and distinct topic focus without repetition."
     )
-    user_prompt = f"""Generate exactly {total_questions} UNIQUE, diverse, progressive interview questions for:
+    user_prompt = f"""Generate exactly {total_questions} UNIQUE, short, and clear interview questions for:
 - Role: {job_role} ({difficulty.upper()} Level)
 - Round Type: {round_type.upper()} Round
 - Focus Topics to cover: {', '.join(topics)}
+
+Requirements:
+- Each question MUST be 1-2 short sentences in plain, simple English.
+- Ask one clear question directly without long introductions.
 
 Return a JSON object conforming strictly to:
 {{
@@ -494,7 +544,7 @@ Return a JSON object conforming strictly to:
     {{
       "order": 1,
       "topic": "<one of the selected topics>",
-      "question_text": "<rich, detailed, distinct scenario or question>",
+      "question_text": "<clear, short, 1-2 sentence question in simple English>",
       "expected_concepts": ["<concept 1>", "<concept 2>", "<concept 3>"],
       "evaluation_rubric": "<evaluation criteria>"
     }}

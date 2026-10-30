@@ -17,38 +17,38 @@ from app.ai.output_schemas import QuestionGenOutput, AnswerEvalOutput
 FALLBACK_QUESTIONS = [
     {
         "topic": "Concurrency & I/O Subsystems",
-        "question_text": "Explain the difference between synchronous and asynchronous programming. Give a practical example in a high-throughput backend service, and discuss how threads and I/O multiplexing behave in each model.",
+        "question_text": "Explain the difference between synchronous and asynchronous programming.",
         "difficulty": "senior",
-        "expected_concepts": ["Synchronous blocking", "Non-blocking I/O", "Thread overhead", "Event loop / Epoll", "OS thread stack memory"],
-        "evaluation_rubric": "Look for mechanical understanding of thread stacks (~1MB) vs multiplexed file descriptors (epoll/kqueue) and modern virtual threads."
+        "expected_concepts": ["Synchronous blocking", "Non-blocking I/O", "Thread overhead", "Event loop"],
+        "evaluation_rubric": "Look for a clear understanding of blocking vs non-blocking I/O and thread resource usage."
     },
     {
         "topic": "JVM Internals & Garbage Collection",
-        "question_text": "Compare G1GC and ZGC in terms of throughput, maximum pause times, and memory footprint. When would you prefer one over the other for a financial transaction ledger?",
+        "question_text": "Compare G1 and ZGC garbage collectors in Java.",
         "difficulty": "senior",
-        "expected_concepts": ["Generational G1 regions", "Colored pointers / load barriers in ZGC", "Throughput tax vs sub-millisecond pauses", "Heap sizing impact"],
-        "evaluation_rubric": "Candidate must address pause time targets, load barrier overheads, and the trade-off of raw throughput vs tail latency."
+        "expected_concepts": ["Generational G1 regions", "Pause times", "Colored pointers / load barriers in ZGC", "Throughput trade-offs"],
+        "evaluation_rubric": "Candidate must explain pause time targets and throughput trade-offs between G1 and ZGC."
     },
     {
         "topic": "Distributed Systems & Transactions",
-        "question_text": "How do you handle distributed transactions across independent microservices? Compare Two-Phase Commit (2PC) with the Saga Pattern (orchestrated vs choreographed).",
+        "question_text": "How does the Saga pattern manage transactions across microservices?",
         "difficulty": "senior",
-        "expected_concepts": ["Coordinator bottleneck & blocking in 2PC", "Compensating transactions in Sagas", "Eventual consistency", "Outbox pattern / idempotency"],
-        "evaluation_rubric": "Candidate should emphasize why 2PC does not scale across microservices and how compensations handle partial failures."
+        "expected_concepts": ["Compensating transactions", "Eventual consistency", "Orchestration vs choreography"],
+        "evaluation_rubric": "Candidate should explain compensating transactions and eventual consistency across services."
     },
     {
         "topic": "Event-Driven Architecture",
-        "question_text": "How does Kafka achieve high sequential write throughput and consumer parallelism? Explain log segmentation, partition assignment, and consumer offset commits.",
+        "question_text": "How does Kafka achieve high write performance and consumer parallelism?",
         "difficulty": "senior",
-        "expected_concepts": ["Sequential disk append & OS page cache", "Zero-copy sendfile", "Partition consumer group mapping", "At-least-once vs exactly-once semantics"],
-        "evaluation_rubric": "Reward mechanical sympathy for Linux page cache and sequential I/O over random lookups."
+        "expected_concepts": ["Sequential disk append", "Partitioning", "Consumer groups", "Zero-copy"],
+        "evaluation_rubric": "Look for understanding of sequential append logs and partition-based consumer distribution."
     },
     {
         "topic": "Database Indexing & Query Tuning",
-        "question_text": "Describe the internal structure of B+ Trees vs LSM Trees. Explain why write-heavy analytical databases favor LSM trees while transactional systems prefer B+ Trees.",
+        "question_text": "What is the main difference between B+ Trees and LSM Trees for database indexing?",
         "difficulty": "senior",
-        "expected_concepts": ["B+ Tree random in-place updates & buffer pool", "LSM MemTable and append-only WAL", "Compaction overhead & read amplification", "Write amplification"],
-        "evaluation_rubric": "Look for understanding of write amplification and disk compaction trade-offs."
+        "expected_concepts": ["B+ Tree in-place updates", "LSM append-only MemTable", "Write vs read amplification"],
+        "evaluation_rubric": "Look for understanding of write-heavy LSM design versus read-optimized B+ Trees."
     }
 ]
 

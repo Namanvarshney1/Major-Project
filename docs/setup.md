@@ -18,17 +18,23 @@ This guide describes how to run and verify **PrepPulse** locally on Windows, mac
 ```
 Project/
 ├── .venv/                  # Python Virtual Environment
-├── backend/                # FastAPI Application & AI Workflows
-│   ├── app/
+├── backend-node/           # Primary Application Backend (Node.js + Express + JavaScript ES Modules)
+│   ├── src/                # Auth (Argon2id), Interviews, DB CRUD, Analytics, Coach (all .js)
+│   ├── test/               # Integration tests
+│   ├── Dockerfile
+│   └── package.json
+├── backend/                # Python AI Microservice (FastAPI + LangGraph + Groq)
+│   ├── app/                # 10-Node Workflow, Groq LLM, /internal/ai endpoints
 │   ├── tests/
+│   ├── Dockerfile
 │   └── requirements.txt
-├── frontend/               # React + TypeScript + Vite + Tailwind CSS
+├── frontend/               # React (JavaScript + JSX) + Vite + Tailwind CSS
 │   ├── src/
 │   ├── package.json
-│   └── vite.config.ts
+│   └── vite.config.js
 ├── design-reference/       # Extracted Google Stitch UI assets & reference
 ├── docs/                   # Architecture, Security, API Documentation
-├── docker-compose.yml      # Container orchestration
+├── docker-compose.yml      # Multi-container orchestration (Node, Python AI, Mongo, React)
 └── README.md               # Master Project Overview
 ```
 
@@ -38,30 +44,54 @@ Project/
 
 ### Step 1: Configure Environment Variables
 
-Create `.env` files for both frontend and backend using `.env.example`:
-
 ```bash
 # In the Project root:
+cp .env.example .env
+cp .env.example backend-node/.env
 cp .env.example backend/.env
 ```
 
-### Step 2: Start the FastAPI Backend
+Key environment settings:
+- `PORT=8000` (Node.js main backend)
+- `PYTHON_AI_SERVICE_URL=http://127.0.0.1:8001`
+- `AI_SERVICE_PORT=8001` (Python AI microservice)
+- `INTERNAL_SERVICE_SECRET=preppulse-internal-secret-change-in-prod`
 
-Open a terminal in the project root:
+---
+
+### Step 2: Start the Python AI Microservice (Port 8001)
+
+Open Terminal 1:
 
 ```powershell
 # Windows PowerShell
 .\.venv\Scripts\activate
 cd backend
-python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8001
 ```
 
-The interactive OpenAPI documentation will be accessible at:  
-👉 **http://127.0.0.1:8000/docs**
+*The Python microservice provides the 10-node LangGraph state machine, Groq question generation, and 4-metric evaluation engine via internal service-to-service endpoints.*
 
-### Step 3: Start the React Frontend
+---
 
-Open a second terminal window:
+### Step 3: Start the Node.js Primary Backend (Port 8000)
+
+Open Terminal 2:
+
+```powershell
+cd backend-node
+npm install
+npm start
+# For development with file watching: npm run dev
+```
+
+*The Node.js backend handles client authentication, MongoDB persistence, session state, analytics DNA, and proxies AI workflows to port 8001.*
+
+---
+
+### Step 4: Start the React Frontend (Port 5173)
+
+Open Terminal 3:
 
 ```powershell
 cd frontend
@@ -69,7 +99,7 @@ npm install
 npm run dev
 ```
 
-The application will be live at:  
+The application is live at:  
 👉 **http://localhost:5173**
 
 ---
@@ -88,43 +118,42 @@ Or register a new account on `/register`.
 
 ## 5. Running the Automated Test Suites
 
-### Backend Unit & Integration Tests (23 Tests)
+### Node.js Backend Integration Test Suite (15 Tests)
+
+```powershell
+cd backend-node
+npm test
+```
+
+Verifies:
+- Health check endpoints
+- Argon2id registration and password verification
+- JWT issuance, verification, and revocation
+- Interview lifecycle (create, get active, save draft, submit answer)
+- 4-metric AI scoring & deterministic fallback
+- Whole-interview report generation
+- 6-axis Interview DNA & Dashboard metrics
+- Python AI microservice client communication
+
+---
+
+### Python AI Microservice Tests (34 Tests)
 
 ```powershell
 cd backend
 ..\.venv\Scripts\pytest -v
 ```
 
-Expected output:
-```
-tests/test_ai_workflow.py::test_workflow_question_generation PASSED
-tests/test_ai_workflow.py::test_workflow_answer_evaluation PASSED
-tests/test_ai_workflow.py::test_workflow_finalization_transition PASSED
-tests/test_auth.py::test_argon2id_hashing PASSED
-tests/test_auth.py::test_register_success PASSED
-...
-============================= 23 passed in 1.80s ==============================
-```
+Verifies:
+- LangGraph 10-node state machine workflow
+- Question generation schemas
+- Answer evaluation scoring logic
+- Service-to-service authentication (`X-Internal-Secret`)
+- Internal API endpoints (`/internal/ai/generate-questions`, `/internal/ai/evaluate-answer`, `/internal/ai/whole-debrief`, `/internal/ai/health`)
 
-### Frontend Component & Route Tests (11 Tests)
+---
 
-```powershell
-cd frontend
-npm test
-```
-
-Expected output:
-```
- ✓ src/test/UIComponents.test.tsx (5 tests)
- ✓ src/test/AuthValidation.test.tsx (2 tests)
- ✓ src/test/NavigationAndApp.test.tsx (2 tests)
- ✓ src/test/InterviewSetup.test.tsx (2 tests)
-
- Test Files  4 passed (4)
-      Tests  11 passed (11)
-```
-
-### Production Build Verification
+### Frontend Production Build Verification
 
 ```powershell
 cd frontend

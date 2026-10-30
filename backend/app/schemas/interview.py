@@ -12,7 +12,7 @@ class InterviewCreate(BaseModel):
     interview_type: Optional[str] = Field(default="technical", description="legacy compatibility")
     difficulty: str = Field(default="senior", description="junior, mid, senior, or staff")
     selected_topics: List[str] = Field(default_factory=lambda: ["Data Structures and Algorithms", "System Design"])
-    total_questions: int = Field(default=10, ge=1, le=25)
+    total_questions: int = Field(default=5, ge=1, le=10)
     timed_mode: bool = Field(default=True)
     time_limit_mins: int = Field(default=10, ge=1, le=120)
 

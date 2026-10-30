@@ -7,32 +7,37 @@
 
 ## 1. High-Level Architectural Topology
 
-PrepPulse employs a clean, modular multi-tier monorepo architecture:
+PrepPulse employs a decoupled microservice architecture:
 
 ```
 ┌────────────────────────────────────────────────────────┐
-│                   React + TypeScript                    │
+│                   React (JavaScript + JSX)             │
 │   (Vite, Tailwind CSS v4, Lucide React, Recharts)     │
 └───────────────────────────┬────────────────────────────┘
-                            │ HTTPS / REST (JWT Bearer)
+                            │ HTTPS / REST (JWT Bearer) - Port 8000
 ┌───────────────────────────▼────────────────────────────┐
-│                    FastAPI Gateway                     │
+│      Node.js + Express + JavaScript (ES Modules)       │
 │  - Argon2id Password Hashing (RFC 9106)                │
-│  - Scoped Multi-Tenant Ownership Authorization         │
-│  - Pydantic v2 Schema Validation & Sanitization        │
+│  - JWT Authentication & Authorization Middleware       │
+│  - Zod Request Schema Validation & Error Handling      │
+│  - Interview Session State & Questions/Answers CRUD     │
+│  - Analytics Engine (6-Axis Interview DNA, Skill Tree) │
+│  - Gamification Engine (XP, Streaks, Milestones)       │
 └───────────────┬────────────────────────┬───────────────┘
-                │                        │
-┌───────────────▼──────────────┐ ┌───────▼───────────────┐
-│     Business Services        │ │  10-Node LangGraph    │
-│  - Interview Management      │ │  State Machine Engine │
-│  - Scoring & Analytics       │ │  - Structured Pydantic│
-│  - Gamification Engine       │ │  - Groq Llama-3.3     │
-│  - Adaptive AI Coach         │ │  - Calibrated Fallback│
-└───────────────┬──────────────┘ └───────┬───────────────┘
+                │                        │ Internal REST / JSON (Port 8001)
+                │                        │ X-Internal-Secret Protected
+                │               ┌────────▼───────────────┐
+                │               │  Python AI Service     │
+                │               │  (FastAPI + LangGraph) │
+                │               │  - 10-Node Workflow    │
+                │               │  - Groq Llama-3.3 LLM  │
+                │               │  - 4-D Answer Scorer   │
+                │               │  - Calibrated Fallback │
+                │               └────────┬───────────────┘
                 │                        │
 ┌───────────────▼────────────────────────▼───────────────┐
 │                 MongoDB Data Storage                   │
-│   (Motor Async Driver + Explicit Compound Indexes)    │
+│   (Official Node MongoDB Driver / Motor Async Driver)  │
 │   - users, interviews, questions, answers,             │
 │   - evaluations, achievements, practice_activity       │
 └────────────────────────────────────────────────────────┘

@@ -11,6 +11,14 @@ from app.main import app
 from app.db.mongodb import db_manager
 from app.db.indexes import create_db_indexes
 from app.core.security import hash_password, create_access_token
+from app.core.config import settings
+from app.ai.llm import llm_client
+
+# Ensure tests run with offline fallback mode and mock DB without hanging on external network calls
+settings.GROQ_API_KEY = ""
+settings.ALLOW_MOCK_DB = True
+llm_client._client = None
+llm_client._api_key = ""
 
 
 @pytest_asyncio.fixture(scope="function")

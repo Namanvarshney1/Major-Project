@@ -51,7 +51,7 @@ export const ROUND_TYPES = [
   },
 ];
 
-export const QUESTION_COUNT_OPTIONS = [10, 12, 15];
+export const QUESTION_COUNT_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const SENIORITY_LEVELS = [
   { id: 'junior', label: 'Junior' },

@@ -33,7 +33,7 @@ export const InterviewSetupPage = () => {
   const [jobRole, setJobRole] = useState(navState.job_role || 'Software Engineer');
   const [roundType, setRoundType] = useState(navState.round_type || 'technical');
   const [difficulty, setDifficulty] = useState(navState.difficulty || 'senior');
-  const [totalQuestions, setTotalQuestions] = useState(navState.total_questions || 10);
+  const [totalQuestions, setTotalQuestions] = useState(navState.total_questions || 5);
   const [timedMode, setTimedMode] = useState(true);
   const [timeLimitMins, setTimeLimitMins] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -244,27 +244,24 @@ export const InterviewSetupPage = () => {
               </div>
             </div>
 
-            {/* Question Count: Exactly 10, 12, 15 */}
+            {/* Number of Questions Dropdown: 1 to 10 */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-[#454742] uppercase tracking-wider">
-                Question Count
+              <label htmlFor="question-count-select" className="text-xs font-semibold text-[#454742] uppercase tracking-wider">
+                Number of Questions
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <select
+                id="question-count-select"
+                aria-label="Number of Questions"
+                value={totalQuestions}
+                onChange={(e) => setTotalQuestions(parseInt(e.target.value, 10))}
+                className="w-full px-3.5 py-2.5 bg-[#f6f4eb] border border-[#c6c7c0] rounded-lg text-xs font-medium text-[#1b1c17] focus:outline-none focus:border-[#1b1c17] cursor-pointer"
+              >
                 {QUESTION_COUNT_OPTIONS.map((num) => (
-                  <button
-                    key={num}
-                    type="button"
-                    onClick={() => setTotalQuestions(num)}
-                    className={`py-2 px-2 text-xs font-mono font-semibold rounded-lg border transition-all cursor-pointer text-center ${
-                      totalQuestions === num
-                        ? 'bg-[#c6f26a] text-[#141f00] border-[#4b6700] shadow-xs'
-                        : 'bg-[#f6f4eb] text-[#454742] border-[#c6c7c0] hover:border-[#1b1c17]'
-                    }`}
-                  >
-                    {num} Qs
-                  </button>
+                  <option key={num} value={num}>
+                    {num} {num === 1 ? 'Question' : 'Questions'}
+                  </option>
                 ))}
-              </div>
+              </select>
             </div>
 
             {/* Timer Mode */}

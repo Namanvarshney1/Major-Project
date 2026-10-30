@@ -108,6 +108,14 @@ class Settings(BaseSettings):
     # Rate Limiting
     RATE_LIMIT_PER_MINUTE: int = 60
 
+    # Internal Microservice Communication
+    INTERNAL_SERVICE_SECRET: str = Field(
+        default="preppulse-internal-ai-service-secret-token-key-32chars",
+        description="Shared secret for Node.js to Python microservice authentication",
+        validation_alias=AliasChoices("INTERNAL_SERVICE_SECRET", "AI_SERVICE_SECRET")
+    )
+    AI_SERVICE_PORT: int = Field(default=8001, validation_alias=AliasChoices("AI_SERVICE_PORT", "PYTHON_PORT"))
+
     # CORS & Security Gateways
     FRONTEND_ORIGINS: Union[str, List[str]] = Field(
         default=[

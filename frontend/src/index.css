@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "./**/*.{js,jsx}";
+@source "../index.html";
 
 @theme {
   --font-display: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;

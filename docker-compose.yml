@@ -12,23 +12,45 @@ services:
     volumes:
       - mongo_data:/data/db
 
-  backend:
+  ai-service:
     build:
       context: ./backend
+      dockerfile: Dockerfile
+    container_name: preppulse-ai-service
+    restart: unless-stopped
+    command: python -m uvicorn app.main:app --host 0.0.0.0 --port 8001
+    ports:
+      - "8001:8001"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_DATABASE=preppulse_db
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
+      - INTERNAL_SERVICE_SECRET=${INTERNAL_SERVICE_SECRET:-preppulse-internal-ai-service-secret-token-key-32chars}
+      - ALLOW_MOCK_DB=true
+    depends_on:
+      - mongodb
+
+  backend:
+    build:
+      context: ./backend-node
       dockerfile: Dockerfile
     container_name: preppulse-backend
     restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
+      - PORT=8000
       - MONGODB_URI=mongodb://mongodb:27017
       - MONGODB_DATABASE=preppulse_db
-      - GROQ_API_KEY=${GROQ_API_KEY:-}
-      - GROQ_MODEL=${GROQ_MODEL:-llama-3.3-70b-versatile}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-preppulse_production_secret_key_98124}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-preppulse-super-secure-production-jwt-secret-key-32chars-min!}
+      - PYTHON_AI_SERVICE_URL=http://ai-service:8001
+      - INTERNAL_SERVICE_SECRET=${INTERNAL_SERVICE_SECRET:-preppulse-internal-ai-service-secret-token-key-32chars}
       - FRONTEND_ORIGINS=http://localhost:5173,http://localhost:3000
+      - ALLOW_MOCK_DB=true
     depends_on:
       - mongodb
+      - ai-service
 
   frontend:
     build:

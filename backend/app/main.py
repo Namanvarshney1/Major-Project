@@ -22,6 +22,7 @@ from app.api.v1.coach import router as coach_router
 from app.api.v1.analytics import router as analytics_router
 from app.api.v1.gamification import router as gamification_router
 from app.api.v1.history import router as history_router
+from app.api.internal_ai import router as internal_ai_router
 
 
 @asynccontextmanager
@@ -67,6 +68,7 @@ app.include_router(coach_router, prefix=settings.API_V1_STR)
 app.include_router(analytics_router, prefix=settings.API_V1_STR)
 app.include_router(gamification_router, prefix=settings.API_V1_STR)
 app.include_router(history_router, prefix=settings.API_V1_STR)
+app.include_router(internal_ai_router)
 
 
 @app.get("/health", tags=["Health"])

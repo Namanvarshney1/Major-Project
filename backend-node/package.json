@@ -1,0 +1,21 @@
+{
+  "name": "preppulse-backend-node",
+  "version": "1.0.0",
+  "description": "PrepPulse Core Node.js + Express + JavaScript (ES Modules) Backend",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/**/*.test.js"
+  },
+  "dependencies": {
+    "argon2": "^0.41.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.13.0",
+    "zod": "^3.24.2"
+  }
+}

@@ -33,7 +33,7 @@ ROUND_TYPES = [
     {"id": "managerial", "name": "Managerial", "label": "Managerial & Leadership", "description": "Strategic decision-making, team leadership, delegation & conflict resolution"},
 ]
 
-QUESTION_COUNT_OPTIONS = [10, 12, 15]
+QUESTION_COUNT_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Non-technical round topics (shared across all roles)
 HR_TOPICS = [

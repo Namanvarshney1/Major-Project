@@ -23,10 +23,14 @@ describe('Interview Setup Component & Configuration', () => {
     expect(screen.getByText('PI')).toBeInTheDocument();
     expect(screen.getByText('Managerial')).toBeInTheDocument();
 
-    // Verify exactly 10, 12, 15 questions
-    expect(screen.getByText('10 Qs')).toBeInTheDocument();
-    expect(screen.getByText('12 Qs')).toBeInTheDocument();
-    expect(screen.getByText('15 Qs')).toBeInTheDocument();
+    // Verify Number of Questions label and dropdown with 1-10 options (default: 5)
+    expect(screen.getByLabelText(/number of questions/i)).toBeInTheDocument();
+    const countSelect = screen.getByLabelText(/number of questions/i);
+    expect(countSelect.value).toBe('5');
+    expect(countSelect.options.length).toBe(10);
+    for (let i = 1; i <= 10; i++) {
+      expect(screen.getByRole('option', { name: new RegExp(`^${i} Question`, 'i') })).toBeInTheDocument();
+    }
   });
 
   it('allows selecting difficulty button and role options', () => {
@@ -36,7 +40,7 @@ describe('Interview Setup Component & Configuration', () => {
       </BrowserRouter>
     );
 
-    const roleSelect = screen.getByRole('combobox');
+    const roleSelect = screen.getAllByRole('combobox')[0];
     expect(roleSelect).toBeInTheDocument();
 
     // Change role
@@ -44,6 +48,11 @@ describe('Interview Setup Component & Configuration', () => {
       target: { value: 'Frontend Developer' },
     });
     expect(roleSelect.value).toBe('Frontend Developer');
+
+    // Change question count to 7
+    const countSelect = screen.getByLabelText(/number of questions/i);
+    fireEvent.change(countSelect, { target: { value: '7' } });
+    expect(countSelect.value).toBe('7');
 
     // Difficulty level button toggle
     const seniorBtn = screen.getByRole('button', { name: /^senior$/i });
